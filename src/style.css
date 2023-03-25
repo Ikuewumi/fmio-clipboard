@@ -1,97 +1,208 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 1rem;
+}
+
+img, figure, picture, svg { max-width: 100%; }
+button:focus {
+  outline-color: transparent;
+}
+
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --white-hsl: 0, 0, 100%;
+  --black-hsl: 0, 0, 0;
+  --cyan-hsl: 171, 66%, 44%;
+  --blue-l-hsl: 233, 100%, 69%;
+  --blue-d-hsl: 210, 10%, 33%;
+  --blue-g-hsl: 201, 11%, 66%;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --white: hsl(var(--white));
+  --black: hsl(var(--black));
+  --cyan: hsl(var(--cyan-hsl));
+  --blue-l: hsl(var(--blue-l-hsl));
+  --blue-d: hsl(var(--blue-d-hsl));
+  --blue-g: hsl(var(--blue-g-hsl));
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  --size-1: 3rem;
+  --size-2: 2rem;
+  --size-3: 1.5rem;
+
+  font-size: 18px;
+
+
+  --font: 'Bai Jamjuree', sans-serif;
+
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  font-family: var(--font);
   text-align: center;
+  color: #757677;
+  font-weight: 400;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
+
+@media (min-width: 768px) {
+  body {
+    text-align: left;
+  }
 }
 
-.card {
-  padding: 2em;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer utilities {
+
+  .flex-flow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+
+
+  .grid-flow {
+    display: grid;
+  }
+
+
+  .heading-1 {
+
+  }
+
+
+
+  .sg {
+    --col-count: 6;
+    --col-width: 9rem;
+    display: grid;
+    grid-template-columns:
+      minmax(1rem, 1fr) repeat(var(--col-count), minmax(0, var(--col-width))) minmax(1rem, 1fr)
+  }
+
+
+  .sg > * {
+    grid-column: 2 / -2;
+  }
+
+
+
+
+  @media (min-width: 768px) {
+    /* Change the media query as needed */
+
+    .two { --col-number: calc(var(--col-count, 6) / 2); }
+    .three { --col-number: calc(var(--col-count, 6) / 3); }
+
+    .cols > * {
+      grid-column: span var(--col-number);
+    }
+
+    .cols > *:first-child {
+      grid-column: var(--col-start, 2) / span var(--col-number);
+    }
+    
+    .cols > *:last-child {
+      grid-column: span var(--col-number) / calc(var(--col-start, 2) * -1);
+    }
+  }
+
+  /* Define the position of the columns  */
+@media (min-width: 768px) {
+
+  footer#footer > svg {
+    grid-column: 2 / 3; 
+  }
+
+  footer#footer > nav {
+    grid-column: 3 / 7;
+  }
+
+  footer#footer > #socials {
+    grid-column: 7 / 8;
+  }
+  
+
+  footer#footer > * {
+    grid-row: 1 / 2;
+  }
+
+
 }
 
-.read-the-docs {
-  color: #888;
+
+
+
 }
+
+
+
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  --_bg: var(--bg, var(--blue-l-hsl));
+  --_firstShadow: var(--firstShadow, inset 0px -3px 0 1px var(--shadow-clr, rgba(0 0 0 / 0.3)));
+  --_secondShadow: var(--secondShadow, 0px 10px 20px 1px hsla(var(--_bg), 0.22));
+  padding: 1.2rem 2.5rem;
+  background: hsla(var(--_bg));
+  font-weight: 600;
+  color: var(--clr, #ffffff);
+  line-height: var(--lh, 0.8);
+  border-radius: 100vmax;
+  box-shadow: 
+    var(--_firstShadow),
+    var(--_secondShadow);
+
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
+
+@media (max-width:768px) {
   button {
-    background-color: #f9f9f9;
+    width: 90vw;
   }
+}
+
+
+button:focus {
+  outline: 1px solid currentColor;
+  outline-offset: -4px;
+}
+
+
+
+button:hover {
+  --secondShadow: 0px 15px 25px 1px hsla(var(--_bg), 0.32);
+  filter: brightness(1.09);
+  text-shadow: none;
+}
+
+
+footer#footer svg, footer#footer li {
+  cursor: pointer;
+}
+
+
+
+
+footer#footer > nav li:hover {
+  filter:brightness(0.4);
+}
+
+
+footer#footer > #socials svg:hover {
+  filter: brightness(0.3) drop-shadow(0 2px 7px hsla(171, 66%, 44%, 0.3));
+}
+
+footer#footer > #socials svg:focus-visible,
+footer#footer > nav li:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 3px;
 }
